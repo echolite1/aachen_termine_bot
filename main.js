@@ -25,23 +25,24 @@ function delay(time) {
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.start((ctx) => ctx.reply('Dear User, this bot can help you get the appointment.'));
+bot.start((ctx) => ctx.reply('Dear User, this bot can help you get the appointment. To start bot type anything after this message.'));
 
 bot.on('message', async (ctx) => {
-    const response = 'Start scan!';
-    findAppointment(bot);
+    const response = 'Scan started. Available appointments:';
+    var currentUser = "" + ctx.chat.id;
+    findAppointment(bot, currentUser);
     ctx.reply(`${response}`);
 });
 
 bot.launch();
 
 // ************************************** MAIN ******************************************************
-async function findAppointment(botEntity){
+async function findAppointment(botEntity, currentUserID){
 
   const browser = await puppeteer.launch();//{headless: false, slowMo: 100}); // [_][_][_][_][_][_][_][_] );//
   const page = await browser.newPage();
   console.clear();
-  console.log('- - - - - NEW SCAN ' + today + ' - - - - -');
+  console.log('- - - - - NEW SCAN ' + today + ' ID: ' + currentUserID + ' - - - - -');
 
   await personType(regular.category, regular.buttons, regular.name);
   // await personType(studentFH.category, studentFH.buttons, studentFH.name);
@@ -98,8 +99,7 @@ async function findAppointment(botEntity){
                           }
                           else{
                               console.log(resultText);
-                              //(ctx) => ctx.reply(resultText);
-                              botEntity.telegram.sendMessage(163700134, resultText);
+                              botEntity.telegram.sendMessage(currentUserID, resultText);
                           }
                       }
                       catch(error){
