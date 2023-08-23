@@ -9,7 +9,7 @@ var rawTime = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 var yyyy = today.getFullYear();
-today = dd + '-' + mm + '-' + yyyy;
+var time = dd + '-' + mm + '-' + yyyy + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 // main variables
 const constantLink = 'https://termine.staedteregion-aachen.de/auslaenderamt/';
 const defaultTime = 1000;
@@ -25,7 +25,7 @@ function delay(time) {
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.start((ctx) => ctx.reply('Dear User, this bot can help you get the appointment. To start bot type anything after this message.'));
+bot.start((ctx) => ctx.reply('Dear User, this bot can help you get the appointment. To start the bot type anything after this message.'));
 
 bot.on('message', async (ctx) => {
     const response = 'Scan started. Available appointments:';
@@ -42,7 +42,7 @@ async function findAppointment(botEntity, currentUserID){
   const browser = await puppeteer.launch();//{headless: false, slowMo: 100}); // [_][_][_][_][_][_][_][_] );//
   const page = await browser.newPage();
   console.clear();
-  console.log('- - - - - NEW SCAN ' + today + ' ID: ' + currentUserID + ' - - - - -');
+  console.log('- - - - - NEW SCAN ' + time + ' ID: ' + currentUserID + ' - - - - -');
 
   await personType(regular.category, regular.buttons, regular.name);
   // await personType(studentFH.category, studentFH.buttons, studentFH.name);
