@@ -16,9 +16,18 @@ const defaultTime = 1000;
 const multiplier = 4;
 const bot = new Telegraf(process.env.BOT_TOKEN);
 // citizen type variables
-const regular = {category: 115, buttons: [198, 201, 202], name: "Regular Person"};
+const regular = {category: 115, buttons: [198, 201, 202], name: "Regular Person - Aufenthaltserlaubnis"};
 const studentFH = {category: 117, buttons: [193], name: "FH Student"};//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
 const studentRWTH = {category: 114, buttons: [191], name: "RWTH Student"};
+const fiktions = {category: 115, buttons: [227], name: "Regular Person - Fiktionsbescheinigung"};
+const uebertrag = {category: 115, buttons: [232], name: "Regular Person - Übertrag Aufenthalts-/Niederlassungserlaubnis"};
+const reiseFlucht = {category: 115, buttons: [203], name: "Regular Person - Reiseausweis für Flüchtlinge und Übertrag Niederlassungserlaubnis"};
+const grenzGang = {category: 115, buttons: [196], name: "Regular Person - Grenzgängerkarte"};
+const fhFam = {category: 117, buttons: [183], name: "FH Familienangehörige"};
+const fhMitarbeit = {category: 117, buttons: [184], name: "FH Mitarbeitende & Forschende bzw. PhD"};
+const rwthFam = {category: 114, buttons: [194], name: "RWTH Familienangehörige"};
+const rwthMitarbeit = {category: 114, buttons: [197], name: "RWTH Mitarbeitende & Forschende bzw. PhD"};
+// yet 11 types to create
 var externalPersonType = "reg";
 // other functions
 function delay(time) {
