@@ -35,7 +35,7 @@ function delay(time) {
 }
 // bot commands
 bot.launch();
-bot.start((ctx) => ctx.reply('Dear User, this bot can help you get the appointment. To start bot type anything after this message.'));
+bot.start((ctx) => ctx.reply('Dear User, this bot can help you get the appointment. Pleace select an action in the Menu.'));
 bot.command('fh', (ctx) => {
     ctx.reply('Hello FH student!\nScan started. Available appointments:');
     externalPersonType = "fh";
@@ -132,6 +132,7 @@ async function findAppointment(botEntity, currentUserID, externalPersonType){
 
             } catch (error) {
                 console.log("No appointments available");
+                botEntity.telegram.sendMessage(currentUserID, 'No appointments available');
             }
 
             [thirdPage_Back] = await page.$x('//*[@id="zurueck"]');
@@ -155,3 +156,7 @@ async function findAppointment(botEntity, currentUserID, externalPersonType){
   browser.close();
 }
 // ************************************** MAIN ******************************************************
+// TODO:
+// If someone press 2 commands in the same time - crash
+// If 2 users of the bot start using it at the same time - crash
+// Create whitelist
