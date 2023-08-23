@@ -1,7 +1,7 @@
 const { Bot } = require("grammy");
 const { Menu } = require("@grammyjs/menu");
 
-const bot = new Bot("6646406711:AAEIcAX2koeljqpHIPa5JHummG_26TLTKdg");
+const bot = new Bot("");
 
 const menu = new Menu("my-menu-identifier")
   .text("A", (ctx) => ctx.reply("You pressed A!")).row()
