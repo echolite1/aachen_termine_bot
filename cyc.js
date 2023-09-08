@@ -13,7 +13,7 @@ var yyyy = today.getFullYear();
 var time = dd + '-' + mm + '-' + yyyy + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 // main variables
 const constantLink = 'https://termine.staedteregion-aachen.de/auslaenderamt/';
-const defaultTime = 1000;
+const defaultTime = 1300;
 const multiplier = 4;
 const bot = new Telegraf(process.env.BOT_TOKEN);
 // citizen type variables
@@ -47,18 +47,20 @@ bot.command('rwth', (ctx) => {
     ctx.reply('Hello RWTH student!\nScan started. Available appointments:');
     externalPersonType = "rwth";
     var currentUser = "" + ctx.chat.id;
-    findAppointment(bot, currentUser, externalPersonType);
+    var j = schedule.scheduleJob('*/3 * * * *', function(){
+        findAppointment(bot, currentUser, externalPersonType);
+    });
 });
 bot.command('regular', (ctx) => {
     ctx.reply('Hello Citizen!\nScan started. Available appointments:');
     externalPersonType = "reg";
     var currentUser = "" + ctx.chat.id;
-    findAppointment(bot, currentUser, externalPersonType);
+    var j = schedule.scheduleJob('*/3 * * * *', function(){
+        findAppointment(bot, currentUser, externalPersonType);
+    });
 });
 // ************************************** MAIN ******************************************************
 async function findAppointment(botEntity, currentUserID, externalPersonType){
-
-    
 
     const browser = await puppeteer.launch();//{headless: false, slowMo: 100}); // [_][_][_][_][_][_][_][_] );//
     const page = await browser.newPage();
@@ -125,7 +127,7 @@ async function findAppointment(botEntity, currentUserID, externalPersonType){
                         }
                         else{
                             console.log(resultText);
-                            botEntity.telegram.sendMessage(currentUserID, resultText);
+                            botEntity.telegram.sendMessage(currentUserID, resultText + '@echolite');
                         }
                     }
                     catch(error){
@@ -166,6 +168,7 @@ async function findAppointment(botEntity, currentUserID, externalPersonType){
 // setInterval(function () {
 //     console.log('The answer to life, the universe, and everything!');
 // }, 1 * 1000);
+
 // var j = schedule.scheduleJob('*/2 * * * *', function(){
 //     console.log('\n1 min');
 // });
